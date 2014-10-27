@@ -103,10 +103,10 @@ defmodule HTTPotion.Base do
             }
           { :ibrowse_req_id, id } ->
             %HTTPotion.AsyncResponse{ id: id }
-          { :error, { :conn_failed, { :error, reason }}} ->
+          { :error, { _, { :error, { _, reason }}}} ->
             raise HTTPotion.HTTPError, message: to_string(reason)
-          { :error, :conn_failed } ->
-            raise HTTPotion.HTTPError, message: "conn_failed"
+          { :error, { _, { :error, reason }}} ->
+            raise HTTPotion.HTTPError, message: to_string(reason)
           { :error, reason } ->
             raise HTTPotion.HTTPError, message: to_string(reason)
         end
